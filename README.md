@@ -24,13 +24,19 @@ Enter `about:debugging` in the address bar on Firefox 45+, click on `Load Tempor
   + https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json
   + https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/permissions
     
-- /popup/index.html
+- /popup-*/index.html
   + https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/getCurrent
   + https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/Tab
     
-- /popup/popup.js
+- /popup-*/popup.js
   + https://stackoverflow.com/questions/43695817/tabs-getcurrent-result-is-undefined
   + https://stackoverflow.com/questions/10413911/how-to-get-the-currently-opened-tabs-url-in-my-page-action-popup
 
-- /popup/qrcode.min.js
+- /popup-canvas/qrcode.min.js
   + https://github.com/davidshimjs/qrcodejs
+
+- /popup-img/qrious.min.js
+  + https://github.com/neocotic/qrious
+
+- /popup-api/popup.js
+  + http://goqr.me/api/doc/create-qr-code/
