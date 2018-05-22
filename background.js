@@ -11,12 +11,12 @@ function init(tabId) {
 
     browser.pageAction.setTitle({
         tabId: tabId,
-        title: "SHOW QR CODE"
+        title: "SHOW URL AS QR CODE"
     });
     
     browser.pageAction.setPopup({
         tabId: tabId,
-        popup: "popup/index.html"
+        popup: "popup-img/index.html"
     });
 
     browser.pageAction.show(tabId);
