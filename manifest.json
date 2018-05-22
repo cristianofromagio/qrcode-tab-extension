@@ -1,0 +1,17 @@
+{
+  "manifest_version":2,
+  "name": "qrcode-tab",
+  "description": "adds a button in address bar and show url from current tab as qr code",
+  "version": "1.0",
+  "icons": {
+    "128": "icons/icon.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "page_action": {
+    "default_icon": "icons/icon.png",
+    "browser_style": true
+  },
+  "permissions": ["tabs"]
+}
