@@ -1,7 +1,7 @@
 {
   "manifest_version":2,
   "name": "qrcode-tab",
-  "description": "adds a button in address bar and show url from current tab as qr code",
+  "description": "Adds a button in address bar and show url from current tab as QR code",
   "version": "1.0",
   "icons": {
     "128": "icons/icon.png"
