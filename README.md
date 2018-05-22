@@ -1,5 +1,7 @@
-# qrcode-tab
+# qrcode-tab - [Get the add-on on Firefox 45+](https://addons.mozilla.org/en-US/firefox/addon/qr-code-tab-url/)
 Firefox extension that show current tab url as QR code image using WebExtensions API pageAction
+
+![Screenshot](https://raw.githubusercontent.com/cristianofromagio/qrcode-tab/master/screenshot.png)
 
 ## Local debugging
 Enter `about:debugging` in the address bar on Firefox 45+, click on `Load Temporary Add-on`, select and open the `manifest.json`. After each code change, it needs to be reloaded on the `about:debugging` page using the `Reload` link underneath the respective `Temporary Extensions` entry. Local debugging add-ons last as long as the browser window is open.
