@@ -9,6 +9,8 @@ Enter `about:debugging` in the address bar on Firefox 45+, click on `Load Tempor
 ### Based on:
 - https://github.com/tsl143/tutorials
 - https://www.youtube.com/watch?v=RBI-j8USuJs
+- https://activate.mozilla.community/webextensions/
+- https://github.com/mdn/webextensions-examples
 
 ### Publish add-on:
 - http://trishulgoel.com/how-to-publish-addon-on-addons-mozilla-org-aka-amo/
