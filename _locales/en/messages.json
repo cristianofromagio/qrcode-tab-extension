@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+        "message": "QR Code Tab",
+        "description": "Extension name"
+    },
+
+    "extensionDescription": {
+        "message": "Adds a button in address bar and show URL from current tab as QR code",
+        "description": "Extension description"
+    },
+
+    "extensionTitle": {
+        "message": "Show current tab URL as QR Code",
+        "description": "Extension action title"
+    }
+}

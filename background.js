@@ -4,6 +4,8 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
 
 function init(tabId) {
 
+    var title = browser.i18n.getMessage("extensionTitle");
+
     browser.pageAction.setIcon({
         tabId: tabId,
         path: "icons/icon.png"
@@ -11,7 +13,7 @@ function init(tabId) {
 
     browser.pageAction.setTitle({
         tabId: tabId,
-        title: "SHOW URL AS QR CODE"
+        title: title
     });
     
     browser.pageAction.setPopup({

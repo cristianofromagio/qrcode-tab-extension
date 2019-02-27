@@ -1,8 +1,8 @@
 {
   "manifest_version":2,
-  "name": "qrcode-tab",
-  "description": "Adds a button in address bar and show url from current tab as QR code",
-  "version": "1.0",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "1.1",
   "icons": {
     "128": "icons/icon.png"
   },
@@ -13,5 +13,6 @@
     "default_icon": "icons/icon.png",
     "browser_style": true
   },
-  "permissions": ["tabs"]
+  "permissions": ["tabs"],
+  "default_locale": "en"
 }

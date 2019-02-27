@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+        "message": "QR Code Tab",
+        "description": "Nome da extensão"
+    },
+
+    "extensionDescription": {
+        "message": "Adiciona um botão na barra de endereço que exibe um código QR da URL da aba atual",
+        "description": "Descrição da extensão"
+    },
+
+    "extensionTitle": {
+        "message": "Mostrar URL da aba atual como código QR",
+        "description": "Título da ação da extensão"
+    }
+}

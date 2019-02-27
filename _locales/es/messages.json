@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+        "message": "QR Code Tab",
+        "description": "Nombre del complemento"
+    },
+
+    "extensionDescription": {
+        "message": "Agrega un botón en la barra de direcciones que muestra un código QR para la URL de la pestaña actual",
+        "description": "Descripción del complemento"
+    },
+
+    "extensionTitle": {
+        "message": "Mostrar URL de la pestaña actual como código QR",
+        "description": "Título de la acción del complemento"
+    }
+}
