@@ -5,12 +5,22 @@
     },
 
     "extensionDescription": {
-        "message": "Adds a button in address bar and show URL from current tab as QR code",
+        "message": "Adds a button in address bar and show URL from current tab as QR Code",
         "description": "Extension description"
     },
 
     "extensionTitle": {
         "message": "Show current tab URL as QR Code",
         "description": "Extension action title"
+    },
+
+    "clickToZoom": {
+        "message": "Click on image to zoom",
+        "description": "Zoom in generated QR Code image"
+    },
+
+    "resetZoom": {
+        "message": "reset",
+        "description": "Resets zoom on the generated QR Code image"
     }
 }

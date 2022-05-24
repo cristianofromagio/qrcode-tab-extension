@@ -13,6 +13,7 @@
     "browser_style": true,
     "default_icon": "icons/icon-128.svg",
     "default_title": "__MSG_extensionTitle__",
+    "default_popup": "popup-nayuki/index.html"
   },
   "permissions": ["tabs"],
   "default_locale": "en"

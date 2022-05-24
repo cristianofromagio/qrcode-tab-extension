@@ -12,5 +12,15 @@
     "extensionTitle": {
         "message": "Mostrar URL de la pestaña actual como código QR",
         "description": "Título de la acción del complemento"
+    },
+
+    "clickToZoom": {
+        "message": "Click en la imagen para acercar",
+        "description": "Acercar la imagen del código QR generado"
+    },
+
+    "resetZoom": {
+        "message": "reset",
+        "description": "Alejar la imagen del código QR generado"
     }
 }

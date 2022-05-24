@@ -12,5 +12,15 @@
     "extensionTitle": {
         "message": "Mostrar URL da aba atual como código QR",
         "description": "Título da ação da extensão"
+    },
+
+    "clickToZoom": {
+        "message": "Clique na imagem para ampliar",
+        "description": "Ampliar a imagem gerada do código QR"
+    },
+
+    "resetZoom": {
+        "message": "redefinir",
+        "description": "Redefine a ampliação feita na imagem gerada do código QR"
     }
 }

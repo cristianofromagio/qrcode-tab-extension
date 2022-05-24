@@ -1,0 +1,17 @@
+body {
+  padding: .75em;
+}
+
+#qrcode-svg {
+  cursor: zoom-in;
+}
+
+span {
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+#reset-zoom {
+  color: blue;
+  cursor: pointer;
+}

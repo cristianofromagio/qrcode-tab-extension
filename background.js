@@ -6,7 +6,7 @@ function init(tabId) {
 
     browser.pageAction.setPopup({
         tabId: tabId,
-        popup: "popup-img/index.html"
+        popup: "popup-nayuki/index.html"
     });
 
     browser.pageAction.show(tabId);
