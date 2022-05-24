@@ -2,16 +2,17 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "1.1",
+  "version": "1.2",
   "icons": {
-    "128": "icons/icon.png"
+    "128": "icons/icon-128.svg"
   },
   "background": {
     "scripts": ["background.js"]
   },
   "page_action": {
-    "default_icon": "icons/icon.png",
-    "browser_style": true
+    "browser_style": true,
+    "default_icon": "icons/icon-128.svg",
+    "default_title": "__MSG_extensionTitle__",
   },
   "permissions": ["tabs"],
   "default_locale": "en"
