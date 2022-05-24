@@ -4,9 +4,16 @@ Firefox extension that show current tab url as QR code image using WebExtensions
 ![Screenshot](https://raw.githubusercontent.com/cristianofromagio/qrcode-tab-firefox/master/images/screenshot-v1.2.gif)
 
 ## Local debugging
+
 Enter `about:debugging` in the address bar on Firefox 45+, click on `Load Temporary Add-on`, select and open the `manifest.json`. After each code change, it needs to be reloaded on the `about:debugging` page using the `Reload` link underneath the respective `Temporary Extensions` entry. Local debugging add-ons last as long as the browser window is open.
 
 To test i18n, download and set language packs on `Options/Preferences -> General -> Language` (may need to [restart the browser and reset browser cache](https://support.mozilla.org/en-US/questions/1264272)), if it does not work, the `about:config` "forced" method with option `intl.locale.requested` might work ([see ref.](https://support.mozilla.org/mk/questions/1264276)).
+
+## Publishing new version
+
+- Run `node build.js` to copy all files needed for the extension to a `dist` folder.
+- Enter `dist` folder and add all files to a zip (do not zip `dist` folder directly, the `manifest.json` file should be at the root when unzipped).
+- Go to Mozilla Add-on Developer Hub extension configs to [Submit a New Version](https://addons.mozilla.org/en-US/developers/addon/qr-code-tab-url/versions/submit/) and follow the instructions on the page.
 
 ## Sources:
 
