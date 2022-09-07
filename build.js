@@ -2,21 +2,59 @@ const
   fs = require("fs"),
   path = require("path");
 
+let manifest = require("./manifest.json");
+
+const TARGET_BROWSER = {
+  '--firefox': "firefox",
+  '--chrome': "chrome",
+  '--opera': "chrome",
+  '--edge': "chrome"
+};
+
+const args = process.argv.slice(2);
+const target = args[0] || "--firefox";
+
+function isFirefox() {
+  return TARGET_BROWSER[target] === "firefox";
+}
+
+function isChrome() {
+  return TARGET_BROWSER[target] === "chrome";
+}
+
 const filesToCopy = [
   "_locales/en/messages.json",
   "_locales/es/messages.json",
   "_locales/pt/messages.json",
-  "icons/icon-128.svg",
   "popup-nayuki/index.html",
   "popup-nayuki/popup.css",
   "popup-nayuki/popup.js",
-  "popup-nayuki/qrcodegen-v1.8.0-es5.js",
   "popup-nayuki/qrcodegen-v1.8.0-es5.min.js",
-  "background.js",
-  "manifest.json",
+  "icons/icon-16.png",
+  "icons/icon-32.png",
+  "icons/icon-48.png",
+  "icons/icon-96.png",
+  "icons/icon-128.png",
+  "vendor/browser-polyfill.min.js", // required by popup
+
+  // "manifest.json", // will be written from object
 ];
 
-const DEST_FOLDER = "dist";
+if (isFirefox()) {
+  // required by pageAction
+  filesToCopy.push(
+    "icons/icon.svg",
+    "background.js"
+  );
+}
+
+if (isChrome()) {
+  // remove 'page_action' and 'background' from manifest
+  const { page_action, background, ...filteredManifest } = manifest;
+  manifest = filteredManifest;
+}
+
+const DEST_FOLDER = "dist/" + TARGET_BROWSER[target];
 
 try {
 
@@ -27,7 +65,7 @@ try {
       recursive: true
     });
   } else {
-    fs.rmdirSync(targetFolder, {
+    fs.rmSync(targetFolder, {
       recursive: true,
       force: true
     });
@@ -61,6 +99,11 @@ try {
     console.log("Copied: ", destPath);
 
   });
+
+  // write (filtered or not) manifest.json
+  const manifestPath = path.join(__dirname, DEST_FOLDER, "manifest.json");
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+  console.log("Copied: ", manifestPath);
 
 } catch (err) {
   console.log(err);
