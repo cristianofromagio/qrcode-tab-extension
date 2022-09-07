@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <script src="qrcodegen-v1.8.0-es5.min.js"></script>
+    <script type="application/javascript" src="../vendor/browser-polyfill.min.js"></script>
     <script src="popup.js"></script>
     <link rel="stylesheet" href="popup.css"/>
   </head>
 
   <body>
 
-    <svg id="qrcode-svg" data-size="23" style="width: 23em;height: 23em">
+    <svg id="qrcode-svg">
       <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
       <path d="" fill="#000000" stroke-width="0"></path>
     </svg>
 
     <div id="messages">
       <span>__MSG_clickToZoom__ (<span id="reset-zoom">__MSG_resetZoom__</span>)</span>
+      <br>
+      <span id="download-image">__MSG_downloadImage__ <span id="image-dimensions"></span></span>
     </div>
 
   </body>

@@ -22,5 +22,10 @@
     "resetZoom": {
         "message": "redefinir",
         "description": "Redefine a ampliação feita na imagem gerada do código QR"
+    },
+
+    "downloadImage": {
+        "message": "Salvar imagem",
+        "description": "Salva a imagem do código QR gerado como PNG"
     }
 }

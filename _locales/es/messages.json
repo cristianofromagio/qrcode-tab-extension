@@ -22,5 +22,10 @@
     "resetZoom": {
         "message": "reset",
         "description": "Alejar la imagen del código QR generado"
+    },
+
+    "downloadImage": {
+        "message": "Guardar imagen",
+        "description": "Salva la imagen del código QR generado como PNG"
     }
 }

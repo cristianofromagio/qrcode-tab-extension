@@ -22,5 +22,10 @@
     "resetZoom": {
         "message": "reset",
         "description": "Resets zoom on the generated QR Code image"
+    },
+
+    "downloadImage": {
+        "message": "Download image",
+        "description": "Save generated QR Code image as PNG"
     }
 }

@@ -1,9 +1,40 @@
+
+/*== hide scrollbar, keep scrolling ==*/
+/* https://stackoverflow.com/a/57232763 */
+@-moz-document url-prefix() { /* Disable scrollbar Firefox */
+  html { scrollbar-width: none }
+}
+body {
+  margin: 0;
+  scrollbar-width: none; /* Also needed to disable scrollbar Firefox */
+  -ms-overflow-style: none;  /* Disable scrollbar IE 10+ */
+  overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* Disable scrollbar Chrome/Safari/Webkit */
+}
+/*== END - hide scrollbar, keep scrolling ==*/
+
+
+/* https://stackoverflow.com/questions/71480433/chrome-is-injecting-some-stylesheet-in-popup-ui-which-reduces-the-font-size-to-7 */
+html,
+body {
+  /* font-size: initial; */
+  font-size: 16px;
+}
+
 body {
   padding: .75em;
+  position: relative;
 }
 
 #qrcode-svg {
   cursor: zoom-in;
+  -ms-interpolation-mode: nearest-neighbor;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
 }
 
 span {
@@ -11,7 +42,42 @@ span {
   font-family: sans-serif;
 }
 
-#reset-zoom {
+#reset-zoom,
+#download-image {
   color: blue;
   cursor: pointer;
+}
+
+#image-dimensions {
+  font-family: monospace;
+}
+
+/* browser popup extension max height 600px and max width 800px */
+/* https://stackoverflow.com/a/8983678 */
+@media only screen and (min-width: 800px),
+only screen and (min-height: 600px) {
+  #qrcode-svg {
+    margin-bottom: 50px;
+  }
+
+  #messages {
+    border-top: 1px solid #cecece;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 10px 10px;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 40%, rgba(255,255,255,0.75) 70%, rgba(255,255,255,0) 100%);
+  }
+
+  #messages span {
+    background-color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  #messages span span {
+    padding: 0;
+  }
 }
