@@ -2,19 +2,37 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "1.2",
+  "version": "1.3",
+  "default_locale": "en",
   "icons": {
-    "128": "icons/icon-128.svg"
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
   },
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "page_action": {
-    "browser_style": true,
-    "default_icon": "icons/icon-128.svg",
+
+  "permissions": ["tabs"],
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    },
     "default_title": "__MSG_extensionTitle__",
     "default_popup": "popup-nayuki/index.html"
   },
-  "permissions": ["tabs"],
-  "default_locale": "en"
+
+  "page_action": {
+    "browser_style": true,
+    "default_icon": "icons/icon.svg",
+    "default_title": "__MSG_extensionTitle__",
+    "default_popup": "popup-nayuki/index.html"
+  },
+  "background": {
+    "scripts": [
+      "vendor/browser-polyfill.min.js",
+      "background.js"
+    ]
+  }
 }
