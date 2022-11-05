@@ -15,6 +15,12 @@ To test i18n, download and set language packs on `Options/Preferences -> General
 - Enter `dist` folder and add all files to a zip (do not zip `dist` folder directly, the `manifest.json` file should be at the root when unzipped).
 - Go to Mozilla Add-on Developer Hub extension configs to [Submit a New Version](https://addons.mozilla.org/en-US/developers/addon/qr-code-tab-url/versions/submit/) and follow the instructions on the page.
 
+## Local Development
+
+- Run `nodemon --watch popup-nayuki -e html,css,js,json build.js` (make sure to have `nodemon` installed globally with `npm install --g nodemon`)
+  + `nodemon --watch popup-nayuki -e html,css,js,json build.js --firefox`
+  + `nodemon --watch popup-nayuki -e html,css,js,json build.js --chrome`
+
 ## Sources:
 
 ### Based on:
