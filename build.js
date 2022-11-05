@@ -50,6 +50,10 @@ if (isFirefox()) {
     "icons/icon.svg",
     "background.js"
   );
+
+  // remove 'browser_action' from manifest
+  const { browser_action, ...filteredManifest } = manifest;
+  manifest = filteredManifest;
 }
 
 if (isChrome()) {
