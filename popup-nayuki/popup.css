@@ -16,6 +16,9 @@ body::-webkit-scrollbar {
 }
 /*== END - hide scrollbar, keep scrolling ==*/
 
+* {
+  box-sizing: border-box;
+}
 
 /* https://stackoverflow.com/questions/71480433/chrome-is-injecting-some-stylesheet-in-popup-ui-which-reduces-the-font-size-to-7 */
 html,
@@ -29,7 +32,7 @@ body {
   position: relative;
 }
 
-#qrcode-svg {
+.qrcode-svg {
   cursor: zoom-in;
   -ms-interpolation-mode: nearest-neighbor;
   image-rendering: -webkit-optimize-contrast;
@@ -42,26 +45,70 @@ span {
   font-family: sans-serif;
 }
 
-#reset-zoom,
-#download-image {
+.actionable {
   color: blue;
   cursor: pointer;
+  text-decoration: none;
 }
 
-#image-dimensions {
+[data-id="image-dimensions"] {
   font-family: monospace;
+}
+
+#highlighted-tab-instructions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#highlighted-tab-instructions p {
+  padding: 1em;
+}
+
+details {
+  width: 100%;
+  max-width: 100%;
+}
+
+#highlighted-tab-list {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.highlighted-tab-list-item {
+  display: list-item;
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: .25rem;
+}
+
+.highlighted-tab-list-item > a {
+  padding-bottom: .25rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+[hidden],
+.hide {
+  display: none;
+}
+
+.messages {
+  border-top: 1px solid #cecece;
 }
 
 /* browser popup extension max height 600px and max width 800px */
 /* https://stackoverflow.com/a/8983678 */
 @media only screen and (min-width: 800px),
 only screen and (min-height: 600px) {
-  #qrcode-svg {
-    margin-bottom: 50px;
+  .js-tabs__content {
+    margin-bottom: 65px;
   }
 
-  #messages {
-    border-top: 1px solid #cecece;
+  .messages {
+    /* border-top: 1px solid #cecece; */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -71,13 +118,19 @@ only screen and (min-height: 600px) {
     background: linear-gradient(90deg, rgba(255,255,255,1) 40%, rgba(255,255,255,0.75) 70%, rgba(255,255,255,0) 100%);
   }
 
-  #messages span {
+  .messages span {
     background-color: white;
     padding: 2px 5px;
     border-radius: 3px;
   }
 
-  #messages span span {
+  .messages span span {
     padding: 0;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .messages {
+    padding: 5px 10px 5px;
   }
 }

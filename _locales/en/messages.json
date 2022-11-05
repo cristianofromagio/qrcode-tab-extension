@@ -5,7 +5,7 @@
     },
 
     "extensionDescription": {
-        "message": "Adds a button in address bar and show URL from current tab as QR Code",
+        "message": "Display QR Code images for current active tab URL and for an unified URL of all highlighted tabs",
         "description": "Extension description"
     },
 
@@ -27,5 +27,25 @@
     "downloadImage": {
         "message": "Download image",
         "description": "Save generated QR Code image as PNG"
+    },
+
+    "activeTabLabel": {
+        "message": "Active tab",
+        "description": "Current focused tab"
+    },
+
+    "highlightedTabLabel": {
+        "message": "Selected tabs",
+        "description": "All highlighted tabs"
+    },
+
+    "highlightedTabInstructions": {
+        "message": "Select (highlight) two or more tabs to create a single unified link address",
+        "description": "Message shown when there is not enough highlighted tabs"
+    },
+
+    "highlightedTabUnifiedLink": {
+      "message": "Unified link",
+      "description": "Unified link address"
     }
 }

@@ -5,7 +5,7 @@
     },
 
     "extensionDescription": {
-        "message": "Adiciona um botão na barra de endereço que exibe um código QR da URL da aba atual",
+        "message": "Exibe imagens de código QR para a URL da aba atual ativa e para um URL unificado de todas as abas selecionadas",
         "description": "Descrição da extensão"
     },
 
@@ -27,5 +27,25 @@
     "downloadImage": {
         "message": "Salvar imagem",
         "description": "Salva a imagem do código QR gerado como PNG"
+    },
+
+    "activeTabLabel": {
+        "message": "Aba ativa",
+        "description": "Aba atual focada"
+    },
+
+    "highlightedTabLabel": {
+        "message": "Abas selecionadas",
+        "description": "Todas as abas destacadas"
+    },
+
+    "highlightedTabInstructions": {
+        "message": "Selecione (destaque) duas ou mais abas para criar um endereço de link unificado",
+        "description": "Mensagem exibida quando não há abas realçadas suficientes"
+    },
+
+    "highlightedTabUnifiedLink": {
+      "message": "Link unificado",
+      "description": "Endereço de link unificado"
     }
 }

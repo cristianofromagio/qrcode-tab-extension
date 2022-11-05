@@ -13,16 +13,66 @@
 
 <body>
 
-    <svg id="qrcode-svg">
-      <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
-      <path d="" fill="#000000" stroke-width="0"></path>
-    </svg>
+  <div class="js-tabs" id="tabs">
 
-    <div id="messages">
-      <span>__MSG_clickToZoom__ (<span id="reset-zoom">__MSG_resetZoom__</span>)</span>
-      <br>
-      <span id="download-image">__MSG_downloadImage__ <span id="image-dimensions"></span></span>
+    <ul class="js-tabs__header">
+      <li>
+        <span class="js-tabs__title actionable">__MSG_activeTabLabel__</span>
+      </li>
+      <li>
+        <span class="js-tabs__title actionable">__MSG_highlightedTabLabel__ <span data-id="highlighted-tab-length"></span></span>
+      </li>
+    </ul>
+
+    <div id="active-tab-section" class="js-tabs__content">
+
+      <svg id="qrcode-svg-active" data-id="qrcode-svg" class="qrcode-svg">
+        <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
+        <path d="" fill="#000000" stroke-width="0"></path>
+      </svg>
+
+      <div id="messages-active" class="messages">
+        <span>__MSG_clickToZoom__ (<span data-id="reset-zoom" class="actionable">__MSG_resetZoom__</span>)</span>
+        <br>
+        <span data-id="download-image" data-image="active" class="actionable">__MSG_downloadImage__ <span
+            data-id="image-dimensions"></span></span>
+      </div>
+
     </div>
+
+    <div id="highlighted-tab-insuficient" class="js-tabs__content">
+
+      <div id="highlighted-tab-instructions">
+        <p>__MSG_highlightedTabInstructions__</p>
+      </div>
+
+    </div>
+
+    <div id="highlighted-tab-section" class="js-tabs__content hide">
+
+      <svg id="qrcode-svg-highlighted" data-id="qrcode-svg" class="qrcode-svg">
+        <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
+        <path d="" fill="#000000" stroke-width="0"></path>
+      </svg>
+
+      <details style="margin-bottom: .5rem">
+        <summary style="user-select:none; cursor:pointer">
+          __MSG_highlightedTabLabel__ <span data-id="highlighted-tab-length"></span>
+          <a id="highlighted-tab-unified-link" class="actionable" href="#" style="float: right">
+            __MSG_highlightedTabUnifiedLink__
+          </a>
+        </summary>
+        <ul id="highlighted-tab-list"></ul>
+      </details>
+
+      <div id="messages-highlighted" class="messages">
+        <span>__MSG_clickToZoom__ (<span data-id="reset-zoom" class="actionable">__MSG_resetZoom__</span>)</span>
+        <br>
+        <span data-id="download-image" data-image="highlighted" class="actionable">__MSG_downloadImage__ <span data-id="image-dimensions"></span></span>
+      </div>
+    </div>
+
+  </div>
 
 </body>
 

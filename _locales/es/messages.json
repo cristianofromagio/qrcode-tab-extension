@@ -5,7 +5,7 @@
     },
 
     "extensionDescription": {
-        "message": "Agrega un botón en la barra de direcciones que muestra un código QR para la URL de la pestaña actual",
+        "message": "Muestra imagenes de código QR para la URL de la pestaña actual activa y para una URL unificada de todas las pestañas seleccionadas",
         "description": "Descripción del complemento"
     },
 
@@ -27,5 +27,25 @@
     "downloadImage": {
         "message": "Guardar imagen",
         "description": "Salva la imagen del código QR generado como PNG"
+    },
+
+    "activeTabLabel": {
+        "message": "Pestaña activa",
+        "description": "Pestaña actual enfocada"
+    },
+
+    "highlightedTabLabel": {
+        "message": "Pestañas seleccionadas",
+        "description": "Todas las pestañas resaltadas"
+    },
+
+    "highlightedTabInstructions": {
+        "message": "Seleccione (resalte) dos o más pestañas para crear una dirección web unificada",
+        "description": "Mensaje que se muestra cuando no hay suficientes pestañas resaltadas"
+    },
+
+    "highlightedTabUnifiedLink": {
+      "message": "Dirección unificada",
+      "description": "Dirección web unificada"
     }
 }
