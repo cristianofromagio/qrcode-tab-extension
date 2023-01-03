@@ -1,3 +1,8 @@
+/**
+ * refs:
+ *  - http://goqr.me/api/doc/create-qr-code/
+ */
+
 getCurrentTab().then((tab) => {
   document.getElementById('image').src = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=' + tab.url;
 });
@@ -10,5 +15,5 @@ function getCurrentTab() {
     }, (tabs) => {
       resolve(tabs[0]);
     });
-  }); 
+  });
 }

@@ -1,5 +1,9 @@
 /**
  * refs:
+ *  - https://stackoverflow.com/a/43698713
+ *  - https://stackoverflow.com/a/10417327
+ *  - https://nayuki.io/page/qr-code-generator-library
+ *  - https://digitalocean.com/community/tools/minify
  *  - https://dinbror.dk/blog/how-to-download-an-inline-svg-as-jpg-or-png/
  *  - https://stackoverflow.com/a/28692538
  *  - https://stackoverflow.com/a/28226736

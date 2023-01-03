@@ -1,3 +1,8 @@
+/**
+ * refs:
+ *  - https://github.com/davidshimjs/qrcodejs
+ */
+
 getCurrentTab().then((tab) => {
   var config = {
     text: tab.url,
@@ -18,5 +23,5 @@ function getCurrentTab() {
     }, (tabs) => {
       resolve(tabs[0]);
     });
-  }); 
+  });
 }

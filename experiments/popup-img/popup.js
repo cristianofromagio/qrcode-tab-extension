@@ -1,3 +1,8 @@
+/**
+ * refs:
+ *  - https://github.com/neocotic/qrious
+ */
+
 getCurrentTab().then((tab) => {
   var config = {
     level: 'H',
@@ -18,5 +23,5 @@ function getCurrentTab() {
     }, (tabs) => {
       resolve(tabs[0]);
     });
-  }); 
+  });
 }
