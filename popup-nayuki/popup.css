@@ -10,6 +10,20 @@
   --border: #ccc;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #262626;
+    --bg-r: 38;
+    --bg-g: 38;
+    --bg-b: 38;
+    --text: #fff;
+
+    --actionable: #4D90C7;
+    --actionable-highlight: #303030;
+    --border: #707070;
+  }
+}
+
 /*== hide scrollbar, keep scrolling ==*/
 /* https://stackoverflow.com/a/57232763 */
 @-moz-document url-prefix() { /* Disable scrollbar Firefox */
