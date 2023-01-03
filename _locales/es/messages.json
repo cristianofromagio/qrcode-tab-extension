@@ -44,8 +44,13 @@
         "description": "Mensaje que se muestra cuando no hay suficientes pestañas resaltadas"
     },
 
-    "highlightedTabUnifiedLink": {
-      "message": "Dirección unificada",
-      "description": "Dirección web unificada"
+    "highlightedTabUnifiedLinkCopy": {
+      "message": "Copiar dirección unificada",
+      "description": "Haga clic para copiar dirección web unificada"
+    },
+
+    "highlightedTabUnifiedLinkEncode": {
+      "message": "Codificar dirección web",
+      "description": "Toggle if unified link address should be encoded"
     }
 }

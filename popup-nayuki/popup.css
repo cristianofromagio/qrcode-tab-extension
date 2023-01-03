@@ -1,3 +1,14 @@
+:root {
+  --background: #fafafa;
+  --bg-r: 250;
+  --bg-g: 250;
+  --bg-b: 250;
+  --text: #262626;
+
+  --actionable: blue;
+  --actionable-highlight: floralwhite;
+  --border: #ccc;
+}
 
 /*== hide scrollbar, keep scrolling ==*/
 /* https://stackoverflow.com/a/57232763 */
@@ -8,7 +19,7 @@ body {
   margin: 0;
   scrollbar-width: none; /* Also needed to disable scrollbar Firefox */
   -ms-overflow-style: none;  /* Disable scrollbar IE 10+ */
-  overflow-y: scroll;
+  overflow: scroll;
 }
 body::-webkit-scrollbar {
   width: 0px;
@@ -25,14 +36,62 @@ html,
 body {
   /* font-size: initial; */
   font-size: 16px;
+  font-family: sans-serif;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  /* background: #fafafa; */
+  background-color: var(--background);
+  /* color: #262626; */
+  color: var(--text);
 }
 
 body {
   padding: .75em;
   position: relative;
+  max-height: 600px;
+  max-width: 800px;
+}
+
+body.es {
+  min-width: 410px; /* needed because spanish string are looong */
+}
+
+details {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: .25rem;
+  cursor: pointer;
+}
+
+span,
+.js-tabs {
+  font-size: 14px;
+}
+
+/* spacing needed for messages fixed footer */
+.js-tabs__content {
+  margin-bottom: 55px;
+}
+
+a,
+a:visited,
+.actionable {
+  color: var(--actionable);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.actionable svg {
+  margin-right: .25rem;
+}
+
+[data-id="image-dimensions"] {
+  font-family: monospace;
 }
 
 .qrcode-svg {
+  display: block;
+  margin: 0 auto;
   cursor: zoom-in;
   -ms-interpolation-mode: nearest-neighbor;
   image-rendering: -webkit-optimize-contrast;
@@ -40,40 +99,18 @@ body {
   image-rendering: pixelated;
 }
 
-span {
-  font-size: 14px;
-  font-family: sans-serif;
-}
-
-.actionable {
-  color: blue;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-[data-id="image-dimensions"] {
-  font-family: monospace;
-}
-
 #highlighted-tab-instructions {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-#highlighted-tab-instructions p {
-  padding: 1em;
-}
-
-details {
-  width: 100%;
-  max-width: 100%;
+  margin: 0 auto;
 }
 
 #highlighted-tab-list {
   margin: 0 auto;
   width: 100%;
+  padding-left: 1.5rem;
 }
 
 .highlighted-tab-list-item {
@@ -90,47 +127,91 @@ details {
   word-break: break-word;
 }
 
+.js-tabs__content .actionable + .actionable,
+.encodedUrlLabel {
+  padding: .25rem .275rem;
+  border-radius: .25rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all .3s ease;
+}
+.js-tabs__content .actionable + .actionable:hover,
+.encodedUrlLabel:hover {
+  transition: all .3s ease;
+  background-color: var(--actionable-highlight);
+}
+.encodedUrlLabel input {
+  margin: 0;
+}
+
+.messages {
+  border-top: 1px solid var(--border);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: .275rem .75rem .275rem;
+  background: var(--background);
+  background: linear-gradient(90deg,
+    rgba(var(--bg-r),var(--bg-g),var(--bg-b),1) 40%,
+    rgba(var(--bg-r),var(--bg-g),var(--bg-b),.75) 70%,
+    rgba(var(--bg-r),var(--bg-g),var(--bg-b),0) 100%
+  );
+}
+
+.messages span {
+  /* background-color: var(--background); */
+  /* padding: 2px 5px; */
+  border-radius: .25rem;
+}
+
+.messages span span {
+  padding: 0;
+}
+
+/* ===== */
+
 [hidden],
 .hide {
   display: none;
 }
 
-.messages {
-  border-top: 1px solid #cecece;
+.inline {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.p-1 {
+  padding: 1rem;
 }
 
 /* browser popup extension max height 600px and max width 800px */
 /* https://stackoverflow.com/a/8983678 */
+/*
 @media only screen and (min-width: 800px),
-only screen and (min-height: 600px) {
-  .js-tabs__content {
-    margin-bottom: 65px;
-  }
+only screen and (min-height: 600px) { }
 
-  .messages {
-    /* border-top: 1px solid #cecece; */
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 5px 10px 10px;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 40%, rgba(255,255,255,0.75) 70%, rgba(255,255,255,0) 100%);
-  }
+@media only screen and (min-width: 800px) { }
+*/
 
-  .messages span {
-    background-color: white;
-    padding: 2px 5px;
-    border-radius: 3px;
-  }
-
-  .messages span span {
-    padding: 0;
-  }
-}
-
-@media only screen and (min-width: 800px) {
-  .messages {
-    padding: 5px 10px 5px;
+@media (min-height: 600px) {
+  /*
+    this fix a weird bug where margin-bottom from .js-tabs__content
+    would not be applied when details
+  */
+  .js-tabs {
+    padding-bottom: 10px;
   }
 }

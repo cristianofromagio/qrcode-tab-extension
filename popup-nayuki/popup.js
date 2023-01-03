@@ -7,7 +7,7 @@
  *  - https://groups.google.com/a/chromium.org/g/chromium-extensions/c/hEDShE5Dwe0
  *  - https://developer.chrome.com/docs/extensions/reference/tabs/
  *  - http://links2tabs.com/about/
- *
+ *  - https://pieroxy.net/blog/pages/lz-string/index.html
  */
 
 const IMAGE_START_SIZE = 20;
@@ -36,49 +36,82 @@ function getHighlightedTabs() {
 }
 
 function resolveI18nPlaceholders() {
-  let allTextNodes = document.createTreeWalker(document.getElementById('tabs'), NodeFilter.SHOW_TEXT);
-  let tmpText, tmpNode, newText;
+
+  let fullLangCode = browser.i18n.getUILanguage();
+  let langCode = fullLangCode.split(/[-_.]/g)[0]; // might return "es-ES", "zh_cn"
+  document.body.classList.add(langCode);
+
+  let allTextNodes = document.createTreeWalker($('body'), NodeFilter.SHOW_TEXT);
+
+  function replaceMsg(node, prop) {
+
+    if (prop.includes('.')) {
+      let arr = prop.split('.');
+      replaceMsg(node[arr.shift()], arr.join('.'));
+      return;
+    }
+
+    let tmp, txt;
+    tmp = node[prop];
+    if (tmp.includes('__MSG_')) {
+      txt = tmp.replace(/__MSG_(\w+)__/g, (match, str) => (str) ? browser.i18n.getMessage(str) : '');
+      if (txt) {
+        node[prop] = txt;
+      }
+    }
+  }
+
+  let tmpNode;
 
   // iterate through all text nodes
   while (allTextNodes.nextNode()) {
     tmpNode = allTextNodes.currentNode;
-    tmpText = tmpNode.nodeValue;
-    newText = tmpText.replace(/__MSG_(\w+)__/g, (match, str) => (str) ? browser.i18n.getMessage(str) : '');
 
-    if (newText) {
-      tmpNode.nodeValue = newText;
+    replaceMsg(tmpNode, 'nodeValue');
+
+    if (tmpNode.parentElement.title) {
+      replaceMsg(tmpNode, 'parentElement.title');
     }
+
   }
 }
 
 function updateBoundedElementsDimensions(newSize) {
   const sizeInPx = (newSize * BASE_FONT_SIZE);
 
-  [...document.querySelectorAll('[data-id="qrcode-svg"]')].forEach((svgEl) => {
-    svgEl.setAttribute("width", sizeInPx + "px");
-    svgEl.setAttribute("height", sizeInPx + "px");
-    svgEl.style.width = newSize + "rem";
-    svgEl.style.height = newSize + "rem";
-    svgEl.dataset.size = newSize;
+  [...$$('[data-id="qrcode-svg"]')].forEach((svgEl) => {
+    // svgEl.setAttribute("width", sizeInPx + "px");
+    // svgEl.setAttribute("height", sizeInPx + "px");
+    // svgEl.style.width = newSize + "rem";
+    // svgEl.style.height = newSize + "rem";
+    // svgEl.dataset.size = newSize;
+
+    $fill(
+      svgEl,
+      ['width', 'height', 'style.width', 'style.height', 'dataset.size'],
+      [sizeInPx + "px", sizeInPx + "px", newSize + "rem", newSize + "rem", newSize]
+    );
   });
 
-  [...document.querySelectorAll('[data-id="image-dimensions"]')].forEach((el) => {
-    el.innerHTML = `(${sizeInPx}x${sizeInPx})`;
+  [...$$('[data-id="image-dimensions"]')].forEach((el) => {
+    el.textContent = `(${sizeInPx}x${sizeInPx})`;
   });
 
   // to keep to popup the same size throughout tabs (active / highlighted)
-  const instructions = document.querySelector('#highlighted-tab-instructions');
+  const instructions = $('#highlighted-tab-instructions');
   if (instructions) {
-    instructions.style.width = newSize + "rem";
-    instructions.style.height = newSize + "rem";
+    // instructions.style.width = newSize + "rem";
+    // instructions.style.height = newSize + "rem";
+    $fill(instructions, ['style.width', 'style.height'], [newSize + "rem", newSize + "rem"])
   }
 
   // THIS IS DONE ONLY TO FIX A BUG WHERE THE TEXT OF THE ANCHOR INSIDE A LIST ITEM
   //  WOULD NOT WRAP/BREAK ON FIREFOX (IT WORKED AS EXPECTED ON CHROME)
-  const list = document.querySelector('#highlighted-tab-list');
+  const list = $('#highlighted-tab-list');
   if (list) {
-    list.style.maxWidth = newSize + "rem";
-    list.style.maxHeight = newSize + "rem";
+    // list.style.maxWidth = newSize + "rem";
+    // list.style.maxHeight = newSize + "rem";
+    $fill(list, ['style.maxWidth', 'style.maxHeight'], [newSize + "rem", newSize + "rem"]);
 
     // this one-liner will overwrite/replace whole style attribute string, use with caution
     // list.setAttribute('style', `max-width:${newSize}rem;max-height:${newSize}rem;`);
@@ -138,21 +171,21 @@ function triggerDownload(imgURI, fileName) {
     bubbles: false,
     cancelable: true
   });
-  let a = document.createElement("a");
+  let a = $create("a");
   a.setAttribute("download", fileName);
   a.setAttribute("href", imgURI);
   a.setAttribute("target", '_parent');
   (document.body || document.documentElement).append(a);
   a.dispatchEvent(evt);
   a.remove();
-  setTimeout(() => { window.close() }, 200);
+  setTimeout(() => { window.close() }, 500);
 }
 
 function downloadSvg(svg, fileName) {
-  let copy = svg.cloneNode(true);
-  copyStylesInline(copy, svg);
+  // let copy = svg.cloneNode(true); // this would only be required if svg is complex / styled with css classes
+  // copyStylesInline(copy, svg); // this would only be required if svg is complex / styled with css classes
+  let copy = svg;
   let canvas = document.createElement("canvas");
-  // const bbox = svg.getBBox(); // this returns viewbox, and our viewbox is 37px
   const bbox = svg.getBoundingClientRect();
   canvas.width = bbox.width;
   canvas.height = bbox.height;
@@ -182,11 +215,14 @@ function downloadSvg(svg, fileName) {
   img.src = url;
 }
 
-function getMultilinkUrlString(tabs) {
-  // it is "http:", not "https:"
+function getMultilinkUrlString(tabs, encoded = false) {
+  // these are "http:", not "https:"
+  //  - they use different query params than our own
   // const baseUrl = new URL("http://links2.me/links2tabs/");
   // const baseUrl = new URL("http://brief.ly/links2tabs/");
-  const baseUrl = new URL("http://many.at/links2tabs/");
+  // const baseUrl = new URL("http://many.at/links2tabs/");
+
+  const baseUrl = new URL("https://cristianofromagio.github.io/qrcode-tab-extension/multi/");
   const baseParams = {
     toc: "ToC",
     title: "Multiple links",
@@ -195,15 +231,38 @@ function getMultilinkUrlString(tabs) {
   };
   let linksParams = {};
 
-  for (let i = 0; i < tabs.length; i++) {
-    const idx = i + 1;
-    linksParams['url' + idx] = tabs[i].url;
-    linksParams['caption' + idx] = tabs[i].title;
+  if (!encoded) {
+
+    // for (let i = 0; i < tabs.length; i++) {
+    //   const idx = i + 1;
+    //   linksParams['url' + idx] = tabs[i].url;
+    //   linksParams['caption' + idx] = tabs[i].title;
+    // }
+
+    tabs.forEach((tab, i) => {
+      const idx = i + 1;
+      linksParams['url' + idx] = tab.url;
+      // 65 is the length of title preview on tab hover (chromium based)
+      // (firefox seems to not have a title length limit on tab hover)
+      linksParams['caption' + idx] = (tab.title.length > 65)
+        ? tab.title.substring(0, 65).trim().concat('...')
+        : tab.title;
+    });
+
+  } else {
+
+    for (let i = 0; i < tabs.length; i++) {
+      const idx = i + 1;
+      linksParams['url' + idx] = LZString.compressToEncodedURIComponent(tabs[i].url);
+      linksParams['caption' + idx] = LZString.compressToEncodedURIComponent(tabs[i].title);
+    }
+
   }
 
   baseUrl.search = new URLSearchParams({
     ...baseParams,
-    ...linksParams
+    ...linksParams,
+    encoded: (encoded) ? 1 : 0
   });
 
   return baseUrl.toString();
@@ -211,7 +270,7 @@ function getMultilinkUrlString(tabs) {
 
 function generateSvgContent(svgEl, text) {
   const segs = qrcodegen.QrSegment.makeSegments(text);
-  const ecl = qrcodegen.QrCode.Ecc.MEDIUM;
+  const ecl = qrcodegen.QrCode.Ecc.LOW;
   const minVer = parseInt(1, 10);
   const maxVer = parseInt(40, 10);
   const mask = parseInt(-1, 10);
@@ -232,9 +291,10 @@ function generateSvgContent(svgEl, text) {
 }
 
 function createQrCodeActiveTab() {
-  const svgEl = document.querySelector('#qrcode-svg-active');
+  const svgEl = $('#qrcode-svg-active');
 
   getCurrentTab().then((tab) => {
+    currentActiveTab = tab;
     const text = tab.url;
     generateSvgContent(svgEl, text);
   });
@@ -242,7 +302,6 @@ function createQrCodeActiveTab() {
 }
 
 function createQrCodeHighlightedTabs() {
-  const svgEl = document.querySelector('#qrcode-svg-highlighted');
 
   getHighlightedTabs().then((tabs) => {
     // ignores "chrome://" and "file://" protocols, etc
@@ -255,52 +314,90 @@ function createQrCodeHighlightedTabs() {
         }
       });
 
-    if (validTabs.length < 2) {
+    validHighlightedTabs = validTabs;
+
+    if (validHighlightedTabs.length < 2) {
       return;
-    } else {
-      document.querySelector('#highlighted-tab-insuficient').remove();
-      document.querySelector('#highlighted-tab-section').classList.remove('hide');
     }
 
-    [...document.querySelectorAll('[data-id="highlighted-tab-length"]')].forEach((el) => {
-      el.innerHTML = `(${validTabs.length})`;
+    $('#highlighted-tab-insuficient').remove();
+    $('#highlighted-tab-section').classList.remove('hide');
+
+    [...$$('[data-id="highlighted-tab-length"]')].forEach((el) => {
+      el.textContent = `(${validHighlightedTabs.length})`;
     });
 
-    const uniLinkText = getMultilinkUrlString(validTabs);
+    renderHighlightedTabsMultilink();
 
-    generateSvgContent(svgEl, uniLinkText);
+    $('#encodedUrl').addEventListener('change', () => {
+      renderHighlightedTabsMultilink();
+    });
 
-    const highlightedTabUniLink = document.querySelector('#highlighted-tab-unified-link');
-    highlightedTabUniLink.href = uniLinkText;
-    highlightedTabUniLink.title = uniLinkText;
-
-    const highlightedTabList = document.querySelector('#highlighted-tab-list');
-    [...validTabs].forEach((tab) => {
-      const item = document.createElement('li');
-      item.innerHTML = `
-        <a href="${tab.url}" title="${tab.url}">${tab.title}</a>
-      `;
+    const highlightedTabList = $('#highlighted-tab-list');
+    // highlightedTabList.querySelectorAll('*').forEach((n) => n.remove());
+    [...validHighlightedTabs].forEach((tab) => {
+      const item = $create('li');
+      const link = $create('a');
+      // $fill(link, [
+      //   'href',
+      //   'title',
+      //   'target',
+      //   'rel',
+      //   'textContent',
+      //   'className'
+      // ],
+      // [
+      //   tab.url,
+      //   tab.url,
+      //   '_blank',
+      //   'noopener',
+      //   tab.title,
+      //   'highlighted-tab-list-item'
+      // ]);
+      link.href = tab.url;
+      link.title = tab.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = tab.title;
       item.className = "highlighted-tab-list-item";
+      item.appendChild(link);
       highlightedTabList.appendChild(item);
     });
 
   });
 }
 
+function renderHighlightedTabsMultilink() {
+
+  const isEncoded = $('#encodedUrl').checked;
+  const uniLinkText = getMultilinkUrlString(validHighlightedTabs, isEncoded);
+
+  const svgEl = $('#qrcode-svg-highlighted');
+  generateSvgContent(svgEl, uniLinkText);
+
+  const highlightedTabUniLink = $('#highlighted-tab-unified-link-copy');
+  highlightedTabUniLink.href = uniLinkText;
+  highlightedTabUniLink.title = uniLinkText;
+
+}
+
+let currentActiveTab = {};
+let validHighlightedTabs = [];
+
 window.addEventListener('DOMContentLoaded', () => {
 
   // shared default sizes
   setSvgDefaultDimensions();
+
+  resolveI18nPlaceholders();
 
   let targetTabs = new Tabs({
     elem: "tabs",
     open: 0
   });
 
-  resolveI18nPlaceholders();
-
   // shared resizing
-  [...document.querySelectorAll('[data-id="qrcode-svg"]')].forEach((svgEl) => {
+  [...$$('[data-id="qrcode-svg"]')].forEach((svgEl) => {
     svgEl.addEventListener('click', (e) => {
       const newSize = parseInt(svgEl.dataset.size, 10) * 1.25;
       updateBoundedElementsDimensions(newSize);
@@ -308,18 +405,17 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   // shared reset sizing
-  [...document.querySelectorAll('[data-id="reset-zoom"]')].forEach((el) => {
+  [...$$('[data-id="reset-zoom"]')].forEach((el) => {
     el.addEventListener('click', () => {
       updateBoundedElementsDimensions(IMAGE_START_SIZE);
     });
   });
 
-  [...document.querySelectorAll('[data-id="download-image"]')].forEach((el) => {
+  [...$$('[data-id="download-image"]')].forEach((el) => {
     el.addEventListener('click', (ev) => {
       const downloadTrigger = ev.target.closest('[data-id="download-image"]');
-      console.log(downloadTrigger);
       const { image: target } = downloadTrigger.dataset;
-      const svgEl = document.querySelector('#qrcode-svg-' + target);
+      const svgEl = $('#qrcode-svg-' + target);
       downloadSvg(svgEl, 'qrcode-' + target + '.png');
     });
   });

@@ -44,8 +44,13 @@
         "description": "Mensagem exibida quando não há abas realçadas suficientes"
     },
 
-    "highlightedTabUnifiedLink": {
-      "message": "Link unificado",
-      "description": "Endereço de link unificado"
+    "highlightedTabUnifiedLinkCopy": {
+      "message": "Copiar link unificado",
+      "description": "Clique para copiar endereço de link unificado"
+    },
+
+    "highlightedTabUnifiedLinkEncode": {
+      "message": "Codificar link",
+      "description": "Alternar se o endereço de link unificado deve ser codificado"
     }
 }

@@ -44,8 +44,13 @@
         "description": "Message shown when there is not enough highlighted tabs"
     },
 
-    "highlightedTabUnifiedLink": {
-      "message": "Unified link",
-      "description": "Unified link address"
+    "highlightedTabUnifiedLinkCopy": {
+      "message": "Copy unified link",
+      "description": "Click to copy unified link address"
+    },
+
+    "highlightedTabUnifiedLinkEncode": {
+      "message": "Encode link",
+      "description": "Toggle if unified link address should be encoded"
     }
 }

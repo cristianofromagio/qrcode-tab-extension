@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./assets/css/vanilla-js-tabs.css" />
   <link rel="stylesheet" href="popup.css" />
   <script type="application/javascript" src="../vendor/browser-polyfill.min.js"></script>
+  <script type="application/javascript" src="./assets/js/utils.js"></script>
   <script type="application/javascript" src="./assets/js/vanilla-js-tabs.min.js"></script>
+  <script type="application/javascript" src="./assets/js/lz-string-v1.4.4.min.js"></script>
   <script type="application/javascript" src="./assets/js/qrcodegen-v1.8.0-es5.min.js"></script>
   <script type="application/javascript" src="popup.js"></script>
 </head>
@@ -16,15 +18,17 @@
   <div class="js-tabs" id="tabs">
 
     <ul class="js-tabs__header">
-      <li>
-        <span class="js-tabs__title actionable">__MSG_activeTabLabel__</span>
+      <li class="js-tabs__title">
+        <span class=" actionable" title="__MSG_activeTabLabel__">__MSG_activeTabLabel__</span>
       </li>
-      <li>
-        <span class="js-tabs__title actionable">__MSG_highlightedTabLabel__ <span data-id="highlighted-tab-length"></span></span>
+      <li class="js-tabs__title">
+        <span class="actionable" title="__MSG_highlightedTabLabel__">__MSG_highlightedTabLabel__ <span
+            data-id="highlighted-tab-length"></span></span>
       </li>
     </ul>
 
-    <div id="active-tab-section" class="js-tabs__content">
+    <!-- SINGLE TAB -->
+    <div class="js-tabs__content" id="active-tab-section">
 
       <svg id="qrcode-svg-active" data-id="qrcode-svg" class="qrcode-svg">
         <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
@@ -34,33 +38,53 @@
       <div id="messages-active" class="messages">
         <span>__MSG_clickToZoom__ (<span data-id="reset-zoom" class="actionable">__MSG_resetZoom__</span>)</span>
         <br>
-        <span data-id="download-image" data-image="active" class="actionable">__MSG_downloadImage__ <span
-            data-id="image-dimensions"></span></span>
+        <div data-id="download-image" data-image="active" class="flex-center actionable">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M11 5a1 1 0 1 1 2 0v7.2l3.2-3.3 1.5 1.4L12 16l-5.7-5.7L7.8 9l3.2 3.3V5Z" />
+            <path fill="currentColor" d="M4 14h2v4h12v-4h2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4Z" />
+          </svg>
+          <span>__MSG_downloadImage__ <span data-id="image-dimensions"></span></span>
+        </div>
       </div>
 
     </div>
 
-    <div id="highlighted-tab-insuficient" class="js-tabs__content">
+    <!-- MULTI TAB ERROR -->
+    <div class="js-tabs__content mb-0" id="highlighted-tab-insuficient">
 
       <div id="highlighted-tab-instructions">
-        <p>__MSG_highlightedTabInstructions__</p>
+        <p class="p-1">__MSG_highlightedTabInstructions__</p>
       </div>
 
     </div>
 
-    <div id="highlighted-tab-section" class="js-tabs__content hide">
+    <!-- MULTI TAB -->
+    <div class="js-tabs__content hide" id="highlighted-tab-section">
 
       <svg id="qrcode-svg-highlighted" data-id="qrcode-svg" class="qrcode-svg">
         <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
         <path d="" fill="#000000" stroke-width="0"></path>
       </svg>
 
-      <details style="margin-bottom: .5rem">
-        <summary style="user-select:none; cursor:pointer">
+      <div class="flex-center" style="justify-content: space-between; margin-top: .25rem">
+        <label class="encodedUrlLabel actionable">
+          <input type="checkbox" name="encodedUrl" id="encodedUrl" /> __MSG_highlightedTabUnifiedLinkEncode__
+        </label>
+
+        <a href="#" id="highlighted-tab-unified-link-copy" target="_blank" rel="noopener" class="actionable">
+          <div class="flex-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M13 7H7V5h6v2Zm0 4H7V9h6v2Zm-6 4h6v-2H7v2Z" />
+              <path fill="currentColor" fill-rule="evenodd" d="M3 19V1h14v4h4v18H7v-4H3Zm12-2V3H5v14h10Zm2-10v12H9v2h10V7h-2Z" clip-rule="evenodd" />
+            </svg>
+            <span>__MSG_highlightedTabUnifiedLinkCopy__</span>
+          </div>
+        </a>
+      </div>
+
+      <details>
+        <summary>
           __MSG_highlightedTabLabel__ <span data-id="highlighted-tab-length"></span>
-          <a id="highlighted-tab-unified-link" class="actionable" href="#" style="float: right">
-            __MSG_highlightedTabUnifiedLink__
-          </a>
         </summary>
         <ul id="highlighted-tab-list"></ul>
       </details>
@@ -68,7 +92,13 @@
       <div id="messages-highlighted" class="messages">
         <span>__MSG_clickToZoom__ (<span data-id="reset-zoom" class="actionable">__MSG_resetZoom__</span>)</span>
         <br>
-        <span data-id="download-image" data-image="highlighted" class="actionable">__MSG_downloadImage__ <span data-id="image-dimensions"></span></span>
+        <div data-id="download-image" data-image="highlighted" class="flex-center actionable">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M11 5a1 1 0 1 1 2 0v7.2l3.2-3.3 1.5 1.4L12 16l-5.7-5.7L7.8 9l3.2 3.3V5Z" />
+            <path fill="currentColor" d="M4 14h2v4h12v-4h2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4Z" />
+          </svg>
+          <span>__MSG_downloadImage__ <span data-id="image-dimensions"></span></span>
+        </div>
       </div>
     </div>
 
