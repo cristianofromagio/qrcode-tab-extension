@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  lang="en-US"
+  xmlns:fb="http://ogp.me/ns/fb#"
+  xmlns:og="http://opengraphprotocol.org/schema/">
+
+<head profile="http://gmpg.org/xfn/11">
+  <title>Links2Tabs</title>
+  <link href="https://cdn.skypack.dev/sanitize.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <div id="global_frame" style="width:100%; height:90%; clear: both; display: block !important; ">
+
+    <div id="tab_tab_page-toc" class="tabcontent">
+      <div class="post" id="page-settings-">
+        <div class="blog-wrapper">
+          <div class="main-column">
+
+            <div class="toc-about clearfix">
+              <p>References 1 - 2</p>
+            </div>
+
+            <div id="sites_content" class="sites_content">
+              <ul>
+                <li>
+                  <a onclick="namelypagetabs.expandit(1);scroll(0,0);" title="Behind The Game S3 EP. 3 | FURIA x GAMERLEGION - YouTube Click on the tab to see the page instantly">
+                    <img
+                      src="/wp-content/images/icons/32/youtube.png"
+                      width="32"
+                      height="32" />
+                    <strong>Behind The Game S3 EP. 3 | FURIA x GAMERLEGION - YouTube</strong>youtube.com
+                  </a>
+                </li>
+                <li>
+                  <a onclick="namelypagetabs.expandit(2);scroll(0,0);" title="Behind The Game S3 EP. 4 | FIRST DAY OF LEGENDS STAGE | RESILIENCE AND EMOTION - YouTube Click on the tab to see the page instantly">
+                    <img
+                      src="/wp-content/images/icons/32/youtube.png"
+                      width="32"
+                      height="32" />
+                    <strong>Behind The Game S3 EP. 4 | FIRST DAY OF LEGENDS STAGE | RESILIENCE AND EMOTION -...</strong>youtube.com
+                  </a>
+                </li>
+              </ul>
+            </div><!-- id="sites_content" -->
+            <h1>&nbsp;</h1>
+            <div id="all_sites_button" class="sites_content">
+              <ul>
+                <li>
+                  <a onclick="name_ly_open_all_links(true);" title="Open all in separate tabs/windows.">
+                    <img
+                    src="/wp-content/images/icons/32/window-list.png"
+                    width="32"
+                    height="32"
+                    alt="Open all in separate tabs/windows." /><strong>^</strong>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <script type="text/javascript">
+
+              function name_ly_open_all_links(leavebundle) {
+                var alllinks = Array("http://www.youtube.com/embed/b21G5ejO6Ng?modestbranding=1", "http://www.youtube.com/embed/82fsaw9j9fk?modestbranding=1");
+                if (confirm("This will automatically open " + alllinks.length + " links in separate tabs / windows in your browser.\n\nMost likely you will need to close each of them separately too.\n\nDo you want to proceed?\n\nP.S. You may need to allow pop-ups for the links to open properly.")) {
+                  console.log('name_ly_open_all_links');
+                  for (var index = leavebundle ? 0 : 1; index < alllinks.length; index++) {
+                    console.log('name_ly_open_all_links idx: ' + index);
+                    window.open(alllinks[index]);
+                  }
+                  if (!leavebundle && alllinks.length > 1) {
+                    window.location = alllinks[0];
+                  }
+                }
+              }
+
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

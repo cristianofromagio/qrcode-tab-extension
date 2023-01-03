@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multilinks - QR Code Tab</title>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+  <style>
+    /* .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .block {
+      display: block;
+    }
+
+    .w100 {
+      width: 100%;
+    } */
+
+    .small-cell {
+      width: 5%;
+    }
+
+    .link-cell {
+      position: relative;
+    }
+
+    .link-cell a {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 5px;
+      padding-right: -5px;
+      box-sizing: border-box;
+    }
+
+    .link-cell a:hover {
+      outline: 1px solid white;
+    }
+
+    #linkList td:first-of-type {
+      width: 30%;
+    }
+
+    [data-link='external']::after {
+      content: "";
+      background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="hsl(10,0,0)"><g><path d="M11 2H7V0h7v7h-2V3L7 8 6 7l5-5z"/><path d="M6 2H0v12h12V8h-2v4H2V4h4V2z"/></g></svg>');
+      background-size: 100% 100%;
+      display: inline-block;
+      margin: 0 5px;
+      padding: 0;
+      width: 12px;
+      height: 12px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!--
+  This component uses @tailwindcss/forms
+
+  yarn add @tailwindcss/forms
+  npm install @tailwindcss/forms
+
+  plugins: [require('@tailwindcss/forms')]
+-->
+
+  <header aria-label="Page Header" class="bg-gray-50">
+    <div class="mx-auto max-w-screen-xl px-4 py-4 sm:py-10 sm:px-6 lg:px-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <div class="text-center sm:text-left">
+          <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+            Multilinks
+          </h1>
+
+          <p class="mt-1.5 text-sm text-gray-500">
+            qrcode-tab-extension generated
+          </p>
+        </div>
+
+        <div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+          <button
+            class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"
+            type="button">
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="mr-1"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              width="16"
+              height="16">
+              <path fill-rule="evenodd"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+              </path>
+            </svg>
+
+            <span class="text-sm font-medium"> See on GitHub </span>
+
+            <!-- <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="ml-1.5 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg> -->
+            <span data-link="external"></span>
+          </button>
+
+          <!-- <button
+          class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
+          type="button"
+        >
+          Create Post
+        </button> -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- <div id='target'>
+    <div>
+      nested text 1
+      <div>
+        nested text 2
+        <div class="bordered">
+          nested text 3
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="red">red</p>
+  <p>not red</p>
+  <p class="red">red</p>
+  <p class="red bordered">red</p> -->
+
+  <main>
+    <div class="mx-auto max-w-screen-xl px-4 py-6 sm:py-10 sm:px-6 lg:px-8">
+      <div class="sm:flex sm:items-center sm:justify-between flex-col">
+        <button id="openAllButton" class="w-full bg-blue-600 hover:bg-blue-700 py-2 px-4 text-sm font-medium text-white border border-transparent rounded-lg focus:outline-none">
+          Open all links (<span data-id="size"></span>) <span data-link="external"></span>
+        </button>
+
+        <table>
+          <caption>
+            <h2>
+              <span data-id="header"></span> (<span data-id="size"></span>)
+            </h2>
+          </caption>
+          <tbody id="linkList">
+            <!-- <tr>
+              <th scope="row">File</th>
+              <td id="table-file-name">water.min.css</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const $ = function (q) {
+        return document.querySelector(q)
+      },
+        $$ = function (q) {
+          return document.querySelectorAll(q)
+        },
+        set = function (el, prop, val) {
+          if (el) {
+            // returned by querySelectorAll
+            if (el instanceof NodeList) {
+              el.forEach((entry) => set(entry, prop, val));
+              return;
+            }
+
+            if (prop.includes('.')) {
+              let s = prop.split('.');
+              set(el[s.shift()], s.join('.'), val);
+              return;
+            }
+
+            el[prop] = val;
+          }
+        };
+
+      // // set($('h1'), 'innerHTML', 'test');
+      // // set($('h1'), 'style.border', '1px solid red');
+      // // set($('h1'), 'style.color', 'green');
+      // // set($('#inexist'), 'style.color', 'green');
+      // // set($$('p.red'), 'style.color', 'red');
+      // // set($$('p.red'), 'innerHTML', 'red test');
+      // // set($$('.bordered'), 'style.border', '1px solid black');
+      // // set($$('.inexist'), 'style.border', '1px solid black');
+      // // set($('#target'), 'firstElementChild.style.color', 'orange');
+      // // set($('#target'), 'firstElementChild.firstElementChild.style.color', 'red');
+      // // set($('#target'), 'firstElementChild.firstElementChild.firstElementChild.style.color', 'grey');
+
+      function getMultilinkUrl(tabs) {
+        // it is "http:", not "https:"
+        // const baseUrl = new URL("http://links2.me/links2tabs/");
+        // const baseUrl = new URL("http://brief.ly/links2tabs/");
+        const baseUrl = new URL("http://127.0.0.1:5500/multilink/index.html");
+        const baseParams = {
+          header: "Multiple links",
+        };
+        let fields = { 'titles': [], 'urls': [] };
+
+        for (let i = 0; i < tabs.length; i++) {
+          fields['titles'].push(tabs[i].title);
+          fields['urls'].push(tabs[i].url);
+        }
+
+        // https://jsonapi.org/format/#fetching-sparse-fieldsets
+        // obviously not a proper usage, inspired by the format only
+        let linksParams = { 'links[titles]': fields.titles.join(','), 'links[urls]': fields.urls.join(',') };
+
+        baseUrl.search = new URLSearchParams({
+          ...baseParams,
+          ...linksParams
+        });
+
+        return baseUrl;
+      }
+      const test = [
+        {
+          url: 'https://google.com',
+          title: 'Google'
+        },
+        {
+          url: 'https://instagram.com',
+          title: 'Instagram'
+        },
+        {
+          url: 'https://hltv.org',
+          title: 'HLTV.org'
+        }
+      ];
+      const formmedFullLink = getMultilinkUrl(test);
+      console.log(formmedFullLink.toString());
+
+      // let exampleSearch = "?url1=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DmmUhkM1qbYQ&caption1=808+kit+%2F808+Samples+Pack+%2FDARK+808+kit+%5B+Free+Download+%5D+Ep10+-+YouTube&url2=https%3A%2F%2Ftwitter.com%2Fjeffrey_way%2Fstatus%2F1588542950950440960&caption2=https%3A%2F%2Ftwitter.com%2Fjeffrey_way%2Fstatus%2F1588542950950440960&url3=https%3A%2F%2Ftwitter.com%2FPovilasKorop%2Fstatus%2F1589225028725374976&caption3=Twitter";
+      // let exampleSearch2 = "?links[titles]=title1,title2&links[urls]=url1,url2";
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      // const urlSearchParams = new URLSearchParams(formmedFullLink.search);
+      let links = '';
+      let fields = {
+        'titles': urlSearchParams.get("links[titles]").split(','),
+        'urls': urlSearchParams.get("links[urls]").split(','),
+        'header': urlSearchParams.get("header")
+      };
+
+      for (let i = 0; i < fields.titles.length; i++) {
+        links += `
+        <tr>
+          <th class="small-cell" scope="row">#${(i + 1)}</th>
+          <td>${fields.titles[i]}</td>
+          <td class="link-cell">
+            <a
+              style="display:flex"
+              title="${fields.urls[i]}"
+              target="_blank"
+              rel="noopener"
+              href="${fields.urls[i]}">
+                <span data-link="external">${fields.urls[i]}</span>
+            </a>
+          </td>
+        </tr>\n`;
+      }
+
+      set($('[data-id="header"]'), 'innerHTML', fields.header);
+      set($$('[data-id="size"]'), 'innerHTML', fields.titles.length);
+      set($('#linkList'), 'innerHTML', links);
+
+      function openAll() {
+        const allLinks = fields.urls;
+        if (confirm("This will automatically open " + allLinks.length + " links in separate tabs / windows in your browser.\n\nMost likely you will need to close each of them separately too.\n\nDo you want to proceed?\n\nP.S. You may need to allow pop-ups for the links to open properly.")) {
+          console.log('open all links');
+          for (let i = 0; i < allLinks.length; i++) {
+            console.log('open all links idx: ' + i);
+            window.open(allLinks[i]);
+          }
+        }
+      }
+
+      set($('#openAllButton'), 'onclick', openAll);
+
+    })();
+  </script>
+</body>
+
+</html>
